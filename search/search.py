@@ -92,7 +92,9 @@ def depthFirstSearch(problem):
     closed = []
     dict = {}
     actions = [] 
-    fringe.push(problem.getStartState())
+    for x in problem.getSuccessors(problem.getStartState()):
+        fringe.push(x)
+        dict[x] = problem.getStartState()
     
     while not fringe.isEmpty():
         node = fringe.pop()
