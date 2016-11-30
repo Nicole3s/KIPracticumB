@@ -88,22 +88,24 @@ def depthFirstSearch(problem):
     """
     "*** YOUR CODE HERE ***"
     
+    startState = problem.getStartState()
     fringe = util.Stack()
-    closed = []
+    closed = [startState]
     dict = {}
-    actions = [] 
-    for x in problem.getSuccessors(problem.getStartState()):
-        fringe.push(x)
-        dict[x] = problem.getStartState()
+    actions = []
     
+    for x in problem.getSuccessors(startState):
+        fringe.push(x)
+        dict[x] = startState
+          
     while not fringe.isEmpty():
         node = fringe.pop()
 
         if node[0] not in closed:
+
             if problem.isGoalState(node[0]):
-                
                 current = node
-                while (current != problem.getStartState()):
+                while (current != startState):
                     actions.append(current[1])
                     current = dict[current] 
                 actions.reverse()     
@@ -119,12 +121,47 @@ def depthFirstSearch(problem):
                     if node in dict.keys() and s in dict.values():
                         continue
                     dict[s] = node
-                  
+                    
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+    
+    startState = problem.getStartState()
+    fringe = util.Queue()
+    closed = [startState]
+    dict = {}
+    actions = []
+    for x in problem.getSuccessors(startState):
+        fringe.push(x)
+        dict[x] = startState   
+        
+    while not fringe.isEmpty():
+        node = fringe.pop()
+        
+        if node[0] not in closed:
+            
+            if problem.isGoalState(node[0]):
+                
+                current = node
+                while (current != startState):
+                    actions.append(current[1])
+                    current = dict[current] 
+                actions.reverse()     
+                return actions
+        
+            else:
+                closed.append(node[0])
+                succ = problem.getSuccessors(node[0])
+                if not succ:
+                    continue
+                for s in succ:
+                    fringe.push(s)
+                    if node in dict.keys() and s in dict.values():
+                        continue
+                    dict[s] = node
+    
     util.raiseNotDefined()
 
 def uniformCostSearch(problem):
