@@ -118,8 +118,6 @@ def depthFirstSearch(problem):
                     continue
                 for s in succ:
                     fringe.push(s)
-                    if node in dict.keys() and s in dict.values():
-                        continue
                     dict[s] = node
                     
     util.raiseNotDefined()
@@ -158,8 +156,6 @@ def breadthFirstSearch(problem):
                     continue
                 for s in succ:
                     fringe.push(s)
-                    if node in dict.keys() and s in dict.values():
-                        continue
                     dict[s] = node
     
     util.raiseNotDefined()
