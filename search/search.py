@@ -186,11 +186,12 @@ def uniformCostSearch(problem):
                 if not succ:
                     continue
                 for s in succ:
-                    fringe.push(s, path_cost[node] + s[2])
+                    cost = path_cost[node] + s[2]
+                    fringe.push(s, cost)
                     if node in dict.keys() and s in dict.values():
                         continue
                     dict[s] = node
-                    path_cost[s] = path_cost[node] + s[2]
+                    path_cost[s] = cost
     util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
