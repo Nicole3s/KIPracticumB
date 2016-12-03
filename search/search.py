@@ -88,15 +88,12 @@ def depthFirstSearch(problem):
     """
     "*** YOUR CODE HERE ***"
     
-    startState = problem.getStartState()
+    startState = (problem.getStartState(), 0, 0)
     fringe = util.Stack()
     closed = [startState]
     dict = {}
     actions = []
-    
-    for x in problem.getSuccessors(startState):
-        fringe.push(x)
-        dict[x] = startState
+    fringe.push(startState)
           
     while not fringe.isEmpty():
         node = fringe.pop()
@@ -126,14 +123,12 @@ def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
     
-    startState = problem.getStartState()
+    startState = (problem.getStartState(), 0, 0)
     fringe = util.Queue()
     closed = [startState]
     dict = {}
     actions = []
-    for x in problem.getSuccessors(startState):
-        fringe.push(x)
-        dict[x] = startState   
+    fringe.push(startState)   
         
     while not fringe.isEmpty():
         node = fringe.pop()
