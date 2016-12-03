@@ -204,51 +204,42 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    
+    startState = (problem.getStartState(), 0, 0)
     fringe = util.PriorityQueue()
+    closed = []
+    dict = {}
+    path_cost = {}
+    path_cost[startState] = startState[2]
     actions = []
-    totnucost = {}
-    camefrom = {}
-    closed =[]
-    curr = (problem.getStartState(), 0, 0)
+    fringe.push(startState, 0)
 
-    totnucost[curr[0]] = 0
-    camefrom[curr[0]] = None
-    fringe.push(curr, 0)
 
     while not fringe.isEmpty():
-       node = fringe.pop()
-       if node[0] not in closed:
+        node = fringe.pop()
 
+        if node[0] not in closed:
 
-        if problem.isGoalState(node[0]):
-            current = node
+            if problem.isGoalState(node[0]):
+                current = node
+                while (current != startState):
+                    actions.append(current[1])
+                    current = dict[current]
+                actions.reverse()
+                return actions
 
-            while (current[0] != problem.getStartState()):
-
-                actions.append(current[1])
-                current = camefrom[current[0]]
-
-            actions.reverse()
-            return actions
-        else:
-            closed.append(node)
-            succ = problem.getSuccessors(node[0])
-            if not succ:
-                continue
-
-            for s in succ:
-                print totnucost[node[0]]
-                newcost = totnucost[node[0]] + s[2]
-
-                if s[0] not in totnucost or newcost < totnucost[node[0]]:
-                    totnucost[s[0]] = newcost
-                    f = newcost + heuristic(s[0], problem)
-                    fringe.push(s, f)
-                    if node in camefrom.keys() and s in camefrom.values():
+            else:
+                closed.append(node[0])
+                succ = problem.getSuccessors(node[0])
+                if not succ:
+                    continue
+                for s in succ:
+                    cost = path_cost[node] + s[2]
+                    fcost = cost + heuristic(s[0], problem)
+                    fringe.push(s, fcost)
+                    if node in dict.keys() and s in dict.values():
                         continue
-                    camefrom[s[0]] = node
-
+                    dict[s] = node
+                    path_cost[s] = cost
     util.raiseNotDefined()
 
 
