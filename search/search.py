@@ -158,19 +158,14 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    startState = problem.getStartState()
+    startState = (problem.getStartState(), 0, 0)
     fringe = util.PriorityQueue()
-    closed = [startState]
+    closed = []
     dict = {}
     path_cost = {}
-    path_cost[startState] = 0
+    path_cost[startState] = startState[2]
     actions = []
-
-    for x in problem.getSuccessors(startState):
-        fringe.push(x, x[2])
-        dict[x] = startState
-        path_cost[x] = path_cost[startState] + x[2]
-
+    fringe.push(startState, 0)
 
     while not fringe.isEmpty():
         node = fringe.pop()
@@ -209,7 +204,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
     
-     fringe = util.PriorityQueue()
+    fringe = util.PriorityQueue()
     actions = []
     totnucost = {}
     camefrom = {}
