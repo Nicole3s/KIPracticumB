@@ -90,7 +90,7 @@ def depthFirstSearch(problem):
     
     startState = (problem.getStartState(), 0, 0)
     fringe = util.Stack()
-    closed = [startState]
+    closed = []
     dict = {}
     actions = []
     fringe.push(startState)
@@ -125,7 +125,7 @@ def breadthFirstSearch(problem):
     
     startState = (problem.getStartState(), 0, 0)
     fringe = util.Queue()
-    closed = [startState]
+    closed = []
     dict = {}
     actions = []
     fringe.push(startState)   
