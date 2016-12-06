@@ -295,6 +295,8 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
+        return (self.startingPosition, (0,0,0,0))
+    
         util.raiseNotDefined()
 
     def isGoalState(self, state):
@@ -302,6 +304,23 @@ class CornersProblem(search.SearchProblem):
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
+        node = state[0]
+        visitedCorners = state[1]
+        count = 0
+        if node in self.corners:
+            if not node in visitedCorners:
+                for s in range(0,4):
+                    if visitedCorners[s] == 0:
+                        visitedCorners = visitedCorners[:s] + (node,) + visitedCorners[s+1:]
+                        for x in range(0,4):
+                            if visitedCorners[x] != 0:
+                                count += 1
+                        if count == 4:
+                            return True
+                        else: 
+                            return False
+        return False
+    
         util.raiseNotDefined()
 
     def getSuccessors(self, state):
@@ -314,7 +333,9 @@ class CornersProblem(search.SearchProblem):
             state, 'action' is the action required to get there, and 'stepCost'
             is the incremental cost of expanding to that successor
         """
-
+        x,y = state[0]
+        visitedCorners = state[1]
+        
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
@@ -326,6 +347,27 @@ class CornersProblem(search.SearchProblem):
 
             "*** YOUR CODE HERE ***"
 
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            hitsWall = self.walls[nextx][nexty]
+            finished = False
+            if not hitsWall: 
+                successorVisitedCorners = visitedCorners
+                next_node = (nextx, nexty)
+                if next_node in self.corners:
+                   if not next_node in successorVisitedCorners:
+                        while finished == False:
+                            for s in range(0,4):
+                                #print s
+                                #print successorVisitedCorners[s]
+                                if successorVisitedCorners[s] == 0:
+                                    #print "boop"
+                                    successorVisitedCorners = visitedCorners[:s] + (next_node,) + visitedCorners[s+1:]
+                                    #print successorVisitedCorners
+                                    finished = True
+                successor = ((next_node, successorVisitedCorners), action, 1) 
+                successors.append(successor)
+                
         self._expanded += 1 # DO NOT CHANGE
         return successors
 
@@ -454,6 +496,31 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
+        foodList = foodGrid.asList()
+    if not foodList:
+        return 0
+    #else:
+    #    hValue = 0
+    #    currentPosition = state[0]
+    #    tuple(currentPosition)
+    #    dict = {}
+    #    for s in range(0, len(foodList)):
+    #        foodPosition = tuple(foodList[s])
+    #        dict[foodPosition] = mazeDistance(currentPosition, foodPosition, problem.startingGameState)#abs(currentPosition[0] - foodPosition[0]) + abs(currentPosition[1] - foodPosition[1])
+    #        currentPosition = foodPosition
+    #    value = min(dict, key=dict.get)
+    #    hValue += dict[value]
+    #    for s in range(0, len(foodList)):
+    #        position = foodList[s]
+    #        if position[0] != currentPosition[0]:
+    #            hValue += 1
+    #            continue
+    #        if position[1] != currentPosition[1]:
+    #            hValue += 1
+
+    #    return hValue
+
+    
     return 0
 
 class ClosestDotSearchAgent(SearchAgent):
