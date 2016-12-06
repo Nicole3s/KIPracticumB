@@ -593,7 +593,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         # Source: https://github.com/sukritiverma1996/Intro-to-AI-course/blob/master/Search/searchAgents.py
         # Returns the true/false state of the position in the grid (true if it is a food position, false if not)
         # A goal state contains food.
-        return food[x][y]
+        return self.food[x][y]
     
         util.raiseNotDefined()
 
