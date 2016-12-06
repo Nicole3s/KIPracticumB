@@ -485,6 +485,8 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
+        return search.ucs(problem)
+    
         util.raiseNotDefined()
 
 class AnyFoodSearchProblem(PositionSearchProblem):
@@ -521,6 +523,11 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         x,y = state
 
         "*** YOUR CODE HERE ***"
+        # Source: https://github.com/sukritiverma1996/Intro-to-AI-course/blob/master/Search/searchAgents.py
+        # Returns the true/false state of the position in the grid (true if it is a food position, false if not)
+        # A goal state contains food.
+        return food[x][y]
+    
         util.raiseNotDefined()
 
 def mazeDistance(point1, point2, gameState):
