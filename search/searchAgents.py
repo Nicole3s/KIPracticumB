@@ -479,31 +479,23 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-        foodList = foodGrid.asList()
+     x,y = state[0]
+    foodList = foodGrid.asList()
     if not foodList:
         return 0
-    #else:
-    #    hValue = 0
-    #    currentPosition = state[0]
-    #    tuple(currentPosition)
-    #    dict = {}
-    #    for s in range(0, len(foodList)):
-    #        foodPosition = tuple(foodList[s])
-    #        dict[foodPosition] = mazeDistance(currentPosition, foodPosition, problem.startingGameState)#abs(currentPosition[0] - foodPosition[0]) + abs(currentPosition[1] - foodPosition[1])
-    #        currentPosition = foodPosition
-    #    value = min(dict, key=dict.get)
-    #    hValue += dict[value]
-    #    for s in range(0, len(foodList)):
-    #        position = foodList[s]
-    #        if position[0] != currentPosition[0]:
-    #            hValue += 1
-    #            continue
-    #        if position[1] != currentPosition[1]:
-    #            hValue += 1
-
-    #    return hValue
-
-    
+    else:
+        hValue = 0
+        currentPosition = (x,y)
+        furthestPosition = foodList[0]
+        longestRoute = ((currentPosition[0] - furthestPosition[0])**2 + (currentPosition[1] - furthestPosition[1])**2)**0.5
+        for s in range(0, len(foodList[1:])):
+            workingPosition = foodList[s]
+            currentRoute = ((currentPosition[0] - workingPosition[0])**2 + (currentPosition[1] - workingPosition[1])**2)**0.5
+            if currentRoute > longestRoute:
+                longestRoute = currentRoute
+                furthestPosition = s
+        hValue = longestRoute
+        return hValue
     return 0
 
 class ClosestDotSearchAgent(SearchAgent):
