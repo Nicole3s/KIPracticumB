@@ -150,6 +150,8 @@ def breadthFirstSearch(problem):
                 if not succ:
                     continue
                 for s in succ:
+                    if node in dict.keys() and s in dict.values():
+                        continue
                     fringe.push(s)
                     dict[s] = node
     
