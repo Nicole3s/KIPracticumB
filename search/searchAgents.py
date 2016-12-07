@@ -295,7 +295,7 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        return (self.startingPosition, (0,0,0,0))
+        return (self.startingPosition, self.corners)
     
         util.raiseNotDefined()
 
@@ -306,19 +306,8 @@ class CornersProblem(search.SearchProblem):
         "*** YOUR CODE HERE ***"
         node = state[0]
         visitedCorners = state[1]
-        count = 0
-        if node in self.corners:
-            if not node in visitedCorners:
-                for s in range(0,4):
-                    if visitedCorners[s] == 0:
-                        visitedCorners = visitedCorners[:s] + (node,) + visitedCorners[s+1:]
-                        for x in range(0,4):
-                            if visitedCorners[x] != 0:
-                                count += 1
-                        if count == 4:
-                            return True
-                        else: 
-                            return False
+        if not visitedCorners:
+            return True
         return False
     
         util.raiseNotDefined()
@@ -350,21 +339,15 @@ class CornersProblem(search.SearchProblem):
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
-            finished = False
             if not hitsWall: 
                 successorVisitedCorners = visitedCorners
                 next_node = (nextx, nexty)
                 if next_node in self.corners:
-                   if not next_node in successorVisitedCorners:
-                        while finished == False:
-                            for s in range(0,4):
-                                #print s
-                                #print successorVisitedCorners[s]
-                                if successorVisitedCorners[s] == 0:
-                                    #print "boop"
-                                    successorVisitedCorners = visitedCorners[:s] + (next_node,) + visitedCorners[s+1:]
-                                    #print successorVisitedCorners
-                                    finished = True
+                   if next_node in successorVisitedCorners:
+                        for s in range(0, len(successorVisitedCorners)):
+                            if successorVisitedCorners[s] == next_node:
+                                successorVisitedCorners = visitedCorners[:s] + visitedCorners[s+1:]
+                                break
                 successor = ((next_node, successorVisitedCorners), action, 1) 
                 successors.append(successor)
                 
