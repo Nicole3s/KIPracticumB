@@ -385,6 +385,16 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
+    #We extract the position and not yet visited corners tuples from the state and place them in variables.
+    #If there is nothing in the availableCorners tuple, this state is the goal state, and we return 0.
+    #In any other case, we first declare the heuristic value (hValue) and give it the default value 0.
+    #We then cycle through all the corners in availableCorners and select the corner with the SMALLEST distance between it and the current state.
+    #This is done by first selecting the first element in availableCorners and placing it in the variable closestPosition. The current state position is placed in the variable currentPosition.
+    #We then calculate the distance between currentPosition and closestPosition, and place it in the variable shortestRoute.
+    #We then cycle through all other corners in availableCorners, and calculate and compare the distances between them and currentPosition.
+    #We end up with the smallest value.
+    #This value is placed in shortestRoute, and this then becomes the value of hValue.
+    #We return hValue as the heuristic.
     position = state[0]
     availableCorners = state[1]
     if not availableCorners:
