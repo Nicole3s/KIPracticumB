@@ -479,7 +479,7 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-     x,y = state[0]
+    x,y = state[0]
     foodList = foodGrid.asList()
     if not foodList:
         return 0
