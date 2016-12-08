@@ -87,7 +87,19 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
-    
+    # Here we implement the depthFirstSearch by first creating a stack, 2 lists and a dictionary.
+    # The stack is the fringe that contains the still unexpanded nodes (that can be visited).
+    # The list closed contains the nodes that have been visited.
+    # The list actions contains the results.
+    # The dictionary dict contains all the child nodes with the parent node as a reference.
+    # The while is used to walk through the fringe to check for every node if it's not in the list closed.
+    # If it's not, it will check then for every node if it's the goalstate with the function isGoalstate().
+    # If it is, the node will be added to the list called actions if it's not equal to the startState.
+    # The node will also be added to the dictionary.
+    # If it's not the goalstate, the node will be added to the list closed and there will be checked if it has
+    # successors.
+    # If it doesn't have any successors,the next node in the fringe will be popped from the fringe and do the process.
+    # If it does, the successors will be pushed on the stack fringe and added to the dictionary dict.
     startState = (problem.getStartState(), 0, 0)
     fringe = util.Stack()
     closed = []
@@ -122,7 +134,19 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    
+    # Here we implement the breadthFirstSearch by first creating a queue, 2 lists and a dictionary.
+    # The stack is the fringe that contains the still unexpanded nodes (that can be visited).
+    # The list closed contains the nodes that have been visited.
+    # The list actions contains the results.
+    # The dictionary dict contains all the child nodes with the parent node as a reference.
+    # The while is used to walk through the fringe to check for every node if it's not in the list closed.
+    # If it's not, it will check then for every node if it's the goalstate with the function isGoalstate().
+    # If it is, the node will be added to the list called actions if it's not equal to the startState.
+    # The node will also be added to the dictionary.
+    # If it's not the goalstate, the node will be added to the list closed and there will be checked if it has successors.
+    # If it doesn't have any successors, the next node in the fringe will be popped from the fringe and do the process.
+    # If it does, the successors will be pushed on the queue fringe and added to the dictionary dict if the key and the
+    #  value of the node aren't in the dictionary.
     startState = (problem.getStartState(), 0, 0)
     fringe = util.Queue()
     closed = []
@@ -160,6 +184,15 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
+      # Here we implement the uniformCostSearch by first creating a priority queue, 2 lists and 2 dictionaries.
+    # The priority queue is the fringe that contains the still unexpanded nodes (that can be visited) ordered by the
+    # least costpath.
+    # The list closed contains the nodes that have been visited.
+    # The list actions contains the results.
+    # The dictionary path_cost contains the cost of the path.
+    # The dictionary dict contains all the child nodes with the parent node as a reference.
+    # It checks the same conditions as DFS and BFS. The only difference is that in the else-statement it calculates the
+    # the current (up to now) cost path and push the node and cost path on the fringe if the node has successors.
     startState = (problem.getStartState(), 0, 0)
     fringe = util.PriorityQueue()
     closed = []
@@ -206,6 +239,17 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
+     # Here we implement the aStarSearch by first creating a priority queue, 2 lists and 2 dictionaries.
+    # The priority queue is the fringe that contains the still unexpanded nodes (that can be visited) ordered by the
+    # least estimated total cost of path through a specific node to goal(=f).
+    # The list closed contains the nodes that have been visited.
+    # The list actions contains the results.
+    # The dictionary path_cost contains the cost of the path.
+    # The dictionary dict contains all the child nodes with the parent node as a reference.
+    # It checks the same conditions as UCS. The only difference is that in the else-statement it calculates the
+    # the current (up to now) cost path (= g) to calculate the cost of f (= g + h(given heuristic)) and then pushes f and the node on
+    # the fringe if the node has successors.
+    # It also puts the new value of cost in the path_cost list to update the list.
     startState = (problem.getStartState(), 0, 0)
     fringe = util.PriorityQueue()
     closed = []
