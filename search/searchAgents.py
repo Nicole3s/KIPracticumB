@@ -502,10 +502,10 @@ def foodHeuristic(state, problem):
         hValue = 0
         currentPosition = (x,y)
         furthestPosition = foodList[0]
-        longestRoute = ((currentPosition[0] - furthestPosition[0])**2 + (currentPosition[1] - furthestPosition[1])**2)**0.5
+        longestRoute = (abs(currentPosition[0] - furthestPosition[0]) + abs(currentPosition[1] - furthestPosition[1]))
         for s in range(0, len(foodList[1:])):
             workingPosition = foodList[s]
-            currentRoute = ((currentPosition[0] - workingPosition[0])**2 + (currentPosition[1] - workingPosition[1])**2)**0.5
+            currentRoute = (abs(currentPosition[0] - workingPosition[0]) + abs(currentPosition[1] - workingPosition[1]))
             if currentRoute > longestRoute:
                 longestRoute = currentRoute
                 furthestPosition = s
