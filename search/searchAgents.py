@@ -504,13 +504,22 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    x,y = state[0]
+    #We first put the foodGrid into a more usable list of positions, rather than a grid of true/false values
+    #If the list is empty, there is no food left in the maze, and this state is the goal state. We return 0.
+    #In any other case, we first make the variable for the heuristic value (hValue) and initiate it with the value 0.
+    #We place the state position in the currentPosition variable, and the first position in foodList in the variable furthestPosition.
+    #We then calculate the distance between currentPosition and furthestPosition using Manhattan distance, placing it in longestRoute.
+    #We then go through the remaining positions in foodList, calculating the distance between them and currentPosition and placing it in currentRoute.
+    #If currentRoute is longer than longestRoute, it becomes the new longestRoute, and the position becomes the new furthestPosition.
+    #We end up after cycling through the entire list with the largest distance in longestRoute.
+    #This value becomes hValue.
+    #We then return hValue.
     foodList = foodGrid.asList()
     if not foodList:
         return 0
     else:
         hValue = 0
-        currentPosition = (x,y)
+        currentPosition = position
         furthestPosition = foodList[0]
         longestRoute = (abs(currentPosition[0] - furthestPosition[0]) + abs(currentPosition[1] - furthestPosition[1]))
         for s in range(0, len(foodList[1:])):
