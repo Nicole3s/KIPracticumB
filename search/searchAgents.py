@@ -561,6 +561,7 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
+        #We calculate the optimal path to the closest dot by using uniform cost search on the problem and returning the resulting list of actions.
         return search.ucs(problem)
     
         util.raiseNotDefined()
