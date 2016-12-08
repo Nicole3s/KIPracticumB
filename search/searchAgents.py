@@ -304,7 +304,7 @@ class CornersProblem(search.SearchProblem):
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-        node = state[0]
+        node = state[0] 
         visitedCorners = state[1]
         if not visitedCorners:
             return True
@@ -336,12 +336,13 @@ class CornersProblem(search.SearchProblem):
 
             "*** YOUR CODE HERE ***"
 
-            dx, dy = Actions.directionToVector(action)
-            nextx, nexty = int(x + dx), int(y + dy)
-            hitsWall = self.walls[nextx][nexty]
+            dx, dy = Actions.directionToVector(action) # this vector has the direction for the next move
+            nextx, nexty = int(x + dx), int(y + dy) #the location pacman will end up after the next move
+            hitsWall = self.walls[nextx][nexty] #if it hits a wall nothing happens
             if not hitsWall: 
-                successorVisitedCorners = visitedCorners
+                successorVisitedCorners = visitedCorners #visitedCorners is the list of not yet visited corners
                 next_node = (nextx, nexty)
+                #if the next node is a corner it will be removed from successorVisitedCorners
                 if next_node in self.corners:
                    if next_node in successorVisitedCorners:
                         for s in range(0, len(successorVisitedCorners)):
